@@ -1,0 +1,31 @@
+<.header>
+  Listing Todo
+  <:actions>
+    <.link href={~p"/todo/new"}>
+      <.button>New Todo</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="todo" rows={@todo_collection} row_click={&JS.navigate(~p"/todo/#{&1}")}>
+  <:col :let={todo} label="Content"><%= todo.content %></:col>
+  <:col :let={todo} label="Finished"><%= todo.finished %></:col>
+
+  <:action :let={todo}>
+    <input type="checkbox" checked={todo.finished} class="checkbox checkbox-sm mr-2" />
+    <.link navigate={~p"/todo/#{todo}/edit"}>Edit</.link>
+  </:action>
+
+  <:action :let={todo}>
+    <div class="sr-only">
+      <.link navigate={~p"/todo/#{todo}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/todo/#{todo}/edit"}>Edit</.link>
+  </:action>
+
+  <:action :let={todo}>
+    <.link href={~p"/todo/#{todo}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
